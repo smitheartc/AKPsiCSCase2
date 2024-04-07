@@ -1,6 +1,7 @@
 import requests
 
 
+
 artist = input("Enter the artist: ")
 song = input("Enter the song: ")
 
@@ -8,3 +9,4 @@ r = requests.get("https://api.lyrics.ovh/v1/{artist}/{song}".format(artist=artis
 
 lyrics = r.json().get("lyrics")
 print(lyrics)
+
