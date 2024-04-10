@@ -14,7 +14,10 @@ app = Flask(__name__)
 
 @app.route("/<artist>/<song>") #by default, uses GET
 def lyrics(artist, song):
-    resp = requests.get('https://api.lyrics.ovh/v1/<artist>/<song>')
+    artist.replace("%20"," ")
+    song.replace("%20"," ")
+    resp = requests.get("https://api.lyrics.ovh/v1/{artist}/{song}".format(artist=artist, song=song))
+
     return resp.json()
 
 #function above currently is facing issues because it does not treat
@@ -27,9 +30,13 @@ def lyrics(artist, song):
 if __name__ == '__main__':
     app.run(debug=True)
 
-#artist = input("Enter the artist: ")
-#song = input("Enter the song: ")
 
-#r = requests.get("https://api.lyrics.ovh/v1/{artist}/{song}".format(artist=artist, song=song))
+# artist = input("Enter the artist: ")
+# print(artist)
+# song = input("Enter the song: ")
 
-#lyrics = r.json().get("lyrics")
+# r = requests.get("https://api.lyrics.ovh/v1/{artist}/{song}".format(artist=artist, song=song))
+
+# lyrics = r.json().get("lyrics")
+
+# print(lyrics)
