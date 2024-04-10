@@ -13,9 +13,10 @@ app = Flask(__name__)
 #the lyrics so that it can be translated
 
 @app.route("/<artist>/<song>") #by default, uses GET
-def lyrics():
-    resp = requests.get('https://api.lyrics.ovh/v1/Coldplay/Adventure of a Lifetime')
+def lyrics(artist, song):
+    resp = requests.get('https://api.lyrics.ovh/v1/<artist>/<song>')
     return resp.json()
+
 #function above currently is facing issues because it does not treat
 # the %20 symbol as a space. I was trying to see if I could use
 #urllib to fix this but was not able to figure it out yet.
