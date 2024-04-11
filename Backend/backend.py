@@ -1,7 +1,4 @@
 import requests
-
-
-
 from flask import Flask
 from flask import url_for #this implements a way to make url building easier, but need to still figure it out
 from flask import request, jsonify #not used yet, may use
@@ -17,7 +14,7 @@ def lyrics(artist, song):
     artist.replace("%20"," ")
     song.replace("%20"," ")
     resp = requests.get("https://api.lyrics.ovh/v1/{artist}/{song}".format(artist=artist, song=song))
-
+    lyrics = resp.json().get("lyrics") 
     return resp.json()
 
 #function above currently is facing issues because it does not treat
