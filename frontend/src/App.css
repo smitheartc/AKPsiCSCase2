@@ -13,8 +13,14 @@
   }
 }
 
+.app-title {
+  margin-top: -510px; /* adjust this value to move the h1 up by pixels */
+}
+
 .App-header {
   background-image: url("background.jpeg");
+  background-repeat: no-repeat;
+  background-size: 1600px 800px;
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -23,6 +29,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  font-family: poppins;
 }
 
 #add comment
@@ -38,3 +45,7 @@
     transform: rotate(360deg);
   }
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -21,12 +21,12 @@ function App() {
   return (
     <div className="App" >
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>React + Flask Tutorial</p>
+      <h1 className="app-title">ACOUSTIQ</h1>
+        {/* <img src={logo} className="App-logo" alt="logo" />
         <div>{getMessage.status === 200 ? 
           <p>{getMessage.data.lyrics}</p>
           :
-          <p>LOADING</p>}</div>
+          <p>LOADING</p>}</div> */}
       </header>
     </div>
   );
