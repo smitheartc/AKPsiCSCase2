@@ -7,8 +7,10 @@ function App() {
   const [getMessage, setGetMessage] = useState({})
 
   useEffect(()=>{
-    axios.post('http://localhost:5000/api/', //fill in json here
-  ).then(response => {
+    axios.post('http://localhost:5000/lyrics/',{
+      "artist" : "Taylor Swift",
+       "song": "Anti-Hero" })
+       .then(response => {
       console.log("SUCCESS", response)
       setGetMessage(response)
     }).catch(error => {
