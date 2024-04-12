@@ -3,7 +3,7 @@ from os import environ
 from google.cloud import translate
 
 
-PROJECT_ID = environ.get("PROJECT_ID", "")
+PROJECT_ID = "casestudy-419503"
 assert PROJECT_ID
 PARENT = f"projects/{PROJECT_ID}"
 
@@ -21,3 +21,5 @@ def print_supported_languages(display_language_code: str):
         language_code = language.language_code
         display_name = language.display_name
         print(f"{language_code:10}{display_name}")
+
+print_supported_languages("en")

@@ -1,4 +1,5 @@
 from flask_restful import Api, Resource, reqparse
+from flask import jsonify
 import requests
 import json
 
@@ -28,6 +29,8 @@ class lyricApi(Resource):
 
     #Making the return a json
     lyricList = {"lyrics" : lyrics}
-    response = json.dumps(lyricList)
+    # response = json.dump(lyricList)
 
-    return response
+    print(lyricList)
+ 
+    return jsonify(lyricList)
