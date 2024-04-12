@@ -1,34 +1,37 @@
 from flask_restful import Api, Resource, reqparse
-import requests
-import json
+from flask import jsonify
+from google.cloud import translate
+import os
 
 class translateApi(Resource):
+
+
+  
+  credential_path = r"C:\Users\acrob\AppData\Roaming\gcloud\application_default_credentials.json"
+  os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
   def post(self):
     parser = reqparse.RequestParser()
     parser.add_argument('language', type=str)
-    parser.add_argument('lyrics', type=str)
+    parser.add_argument('text', type=str)
     args = parser.parse_args()
+
+    PROJECT_ID = "casestudy-419503"
+    assert PROJECT_ID
+    PARENT = f"projects/{PROJECT_ID}"
+
 
     # note, the post req from frontend needs to match the strings here (e.g. 'artist and 'song')
     language = args['language']
-    lyrics = args['lyrics']
+    text = args['text']
+
+    client = translate.TranslationServiceClient()
+
+    response = client.translate_text(contents=[text], parent = PARENT, target_language_code=language)
+    translatedText = response.translations[0].translated_text
+    
+    translatedText.replace("&#39",r"\n")
 
 
-    #formatting the request arguments properly by removing spaces
-    language.replace("%20"," ")
-    lyrics.replace("%20"," ")
-    resp = requests.get("https://api.lyrics.ovh/v1/{artist}/{song}".format(artist=artist, song=song))
-
-    #Cleaning up the junk in the first line
-    raw = resp.json()
-    lyrics = raw["lyrics"]
-    index = lyrics.find('\n')  #finding the first \n
-    lyrics = lyrics[index+1:]  #deleting everything before that
-
-  
-    #Making the return a json
-    lyricList = {"lyrics" : lyrics}
-    response = json.dumps(lyricList)
-
-    return response
+    returnDict = { "text" : translatedText}
+    return jsonify(returnDict)
