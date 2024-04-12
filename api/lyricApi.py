@@ -22,6 +22,7 @@ class lyricApi(Resource):
     #Cleaning up the junk in the first line
     raw = resp.json()
     lyrics = raw["lyrics"]
+    print(lyrics)
     index = lyrics.find('\n')  #finding the first \n
     lyrics = lyrics[index+1:]  #deleting everything before that
 
