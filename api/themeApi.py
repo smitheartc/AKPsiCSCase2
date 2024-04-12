@@ -15,11 +15,11 @@ class themeApi(Resource):
     lyrics = args['lyrics']
 
     # changing it to a string format
-    lyrics = json.dumps(lyrics)
+    ly = json.dumps(lyrics)
 
-    vectorizer = CountVectorizer()
-    X = vectorizer.fit_transform(lyrics)
-    z = vectorizer.vocabulary
+    #vectorizer = CountVectorizer()
+    #vectorizer.fit(ly)
+    #X = vectorizer.fit_transform(ly)
         
     #Cleaning up the junk in the first line
     # raw = resp.json()
@@ -31,4 +31,4 @@ class themeApi(Resource):
     # lyricList = {"lyrics" : lyrics}
     # response = json.dumps(lyricList)
 
-    return z
+    return ly
