@@ -21,7 +21,7 @@ function App() {
   return (
     <div className="App" >
       <header className="App-header">
-      <h1 className="app-title">ACOUSTIQ</h1>
+      <h1>"ACOUSTIQ</h1>
         {/* <img src={logo} className="App-logo" alt="logo" />
         <div>{getMessage.status === 200 ? 
           <p>{getMessage.data.lyrics}</p>

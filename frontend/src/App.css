@@ -13,10 +13,6 @@
   }
 }
 
-.app-title {
-  margin-top: -510px; /* adjust this value to move the h1 up by pixels */
-}
-
 .App-header {
   background-image: url("background.jpeg");
   background-repeat: no-repeat;
