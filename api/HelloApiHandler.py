@@ -14,25 +14,24 @@ class HelloApiHandler(Resource):
     #   }
 
   def post(self):
-    print(self)
     parser = reqparse.RequestParser()
     parser.add_argument('type', type=str)
-    parser.add_argument('message', type=str)
-
+    parser.add_argument('content', type=str)
     args = parser.parse_args()
 
     print(args)
-    # note, the post req from frontend needs to match the strings here (e.g. 'type and 'message')
+    # note, the post req from frontend needs to match the strings here (e.g. 'type and 'content')
 
     request_type = args['type']
-    request_json = args['message']
+    request_json = args['content']
     # ret_status, ret_msg = ReturnData(request_type, request_json)
     # currently just returning the req straight
     ret_status = request_type
     ret_msg = request_json
+    print(type(args["content"]))
 
-    if ret_msg:
-      message = "Your Message Requested: {}".format(ret_msg)
+    if request_type == "lyrics":
+      message = args["content"]["artist"]
     else:
       message = "No Msg"
     
