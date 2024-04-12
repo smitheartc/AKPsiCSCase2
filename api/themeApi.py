@@ -18,23 +18,28 @@ class themeApi(Resource):
         vectorizer = CountVectorizer()
         X = vectorizer.fit_transform(lyrics)
 
-        feature_names = vectorizer.get_feature_names_out()
+        Y = vectorizer.vocabulary_
 
-        df = pd.DataFrame(X.toarray(), columns=feature_names)
+        sortedVocab = sorted(vectorizer.vocabulary_.items(), key=lambda item: item[1], reverse=True)
 
-        sentiment_scores = np.zeros(df.shape[1])
-        for i in range(df.shape[1]):
-            word = feature_names[i]
-            if word in positive_words:
-                sentiment_scores[i] += 1
-            elif word in negative_words:
-                sentiment_scores[i] -= 1
 
-        # Get the top 2 words with the highest sentiment scores
-        top_2_words = np.argsort(sentiment_scores)[-2:]
+        # feature_names = vectorizer.get_feature_names_out()
+
+        # df = pd.DataFrame(X.toarray(), columns=feature_names)
+
+        # sentiment_scores = np.zeros(df.shape[1])
+        # for i in range(df.shape[1]):
+        #     word = feature_names[i]
+        #     if word in positive_words:
+        #         sentiment_scores[i] += 1
+        #     elif word in negative_words:
+        #         sentiment_scores[i] -= 1
+
+        # # Get the top 2 words with the highest sentiment scores
+        # top_2_words = np.argsort(sentiment_scores)[-2:]
 
         #Making the return a json
-        jsonRet = {"theme" : feature_names[top_2_words[0]]}
+        jsonRet = {"theme" : sortedVocab[:2]}
         response = json.dumps(jsonRet)
 
         return response
