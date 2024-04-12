@@ -1,4 +1,5 @@
 from flask_restful import Api, Resource, reqparse
+from flask import jsonify
 import requests
 import json
 
@@ -22,11 +23,14 @@ class lyricApi(Resource):
     #Cleaning up the junk in the first line
     raw = resp.json()
     lyrics = raw["lyrics"]
+    print(lyrics)
     index = lyrics.find('\n')  #finding the first \n
     lyrics = lyrics[index+1:]  #deleting everything before that
 
     #Making the return a json
     lyricList = {"lyrics" : lyrics}
-    response = json.dumps(lyricList)
+    # response = json.dump(lyricList)
 
-    return response
+    print(lyricList)
+ 
+    return jsonify(lyricList)
