@@ -1,6 +1,6 @@
 from flask_restful import Api, Resource, reqparse
 from sklearn.feature_extraction.text import CountVectorizer
-import requests
+from flask import jsonify
 import json
 
 class themeApi(Resource):
@@ -16,30 +16,24 @@ class themeApi(Resource):
         lyrics = json.dumps(lyrics)
 
         vectorizer = CountVectorizer()
-        X = vectorizer.fit_transform(lyrics)
 
-        Y = vectorizer.vocabulary_
+        X = vectorizer.fit_transform([lyrics])
+        print(type(X))
 
-        sortedVocab = sorted(vectorizer.vocabulary_.items(), key=lambda item: item[1], reverse=True)
+        word_counts = X.toarray().sum(axis=0)  # Sum the occurrences of each word
+        vocabulary = vectorizer.vocabulary_
+        
+        # Sort the vocabulary based on word counts
+        sortedVocab = sorted(vocabulary.items(), key=lambda item: word_counts[item[1]], reverse=True)
 
+        #Filter out words shorter than 5 letters
+        sortedVocab = [(word, count) for word, count in sortedVocab if len(word) >= 5]
 
-        # feature_names = vectorizer.get_feature_names_out()
-
-        # df = pd.DataFrame(X.toarray(), columns=feature_names)
-
-        # sentiment_scores = np.zeros(df.shape[1])
-        # for i in range(df.shape[1]):
-        #     word = feature_names[i]
-        #     if word in positive_words:
-        #         sentiment_scores[i] += 1
-        #     elif word in negative_words:
-        #         sentiment_scores[i] -= 1
-
-        # # Get the top 2 words with the highest sentiment scores
-        # top_2_words = np.argsort(sentiment_scores)[-2:]
+        print(sortedVocab)
 
         #Making the return a json
         jsonRet = {"theme" : sortedVocab[:2]}
-        response = json.dumps(jsonRet)
 
-        return response
+        returnDict = { "theme word 1" : jsonRet["theme"][0][0], "theme word 2" : jsonRet["theme"][1][0]}
+
+        return jsonify(returnDict)
