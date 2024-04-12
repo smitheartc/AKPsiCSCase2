@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyrics Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-top: 2rem;
+        }
+
+        form {
+            margin-top: 3rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        #find-lyrics {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        .translation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            padding: 0.5rem;
+            font-size: 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #lyrics-output {
+            margin-top: 2rem;
+            width: 100%;
+            height: 200px;
+            padding: 0.5rem;
+            font-size: 1rem;
+            resize: vertical;
+            overflow: auto;
+            border: 1px solid #ccc;
+        }
+
+        #theme-heading {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        #theme-output {
+            margin-top: 0.5rem;
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            resize: vertical;
+            overflow: auto;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lyrics Finder</h1>
+    <form>
+        <label for="artist-name">Enter artist name:</label>
+        <input type="text" id="artist-name" name="artist-name">
+
+        <label for="song-name">Enter song name:</label>
+        <input type="text" id="song-name" name="song-name">
+
+        <button id="find-lyrics">Find Lyrics</button>
+    </form>
+
+    <div class="translation-buttons">
+        <button id="translate-to-english">Translate to English</button>
+        <button id="translate-to-french">Translate to French</button>
+        <button id="translate-to-italian">Translate to Italian</button>
+        <button id="translate-to-spanish">Translate to Spanish</button>
+    </div>
+
+    <textarea id="lyrics-output" readonly></textarea>
+
+    <h2 id="theme-heading">Theme:</h2>
+    <textarea id="theme-output" readonly></textarea>
+</body>
+</html>
