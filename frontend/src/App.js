@@ -1,34 +1,95 @@
-import logo from './logo.svg';
-import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './App.css';
+
 
 function App() {
-  const [getMessage, setGetMessage] = useState({})
+  const [artist, setArtist] = useState('');
+  const [song, setSong] = useState('');
+  const [lyrics, setLyrics] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [engLyrics, setEngLyrics] = useState('');
+  
+  const handleLyricSubmit = (e) => {
+    
+    e.preventDefault(); //Prevent page refresh
+    setLoading(true); //So the user can see it's loading
+    setError(''); //Clear previous error messages
 
-  useEffect(()=>{
-    axios.post('http://localhost:5000/lyrics/',{
-      "artist" : "Taylor Swift",
-       "song": "Anti-Hero" })
-       .then(response => {
-      console.log("SUCCESS", response)
-      setGetMessage(response)
-    }).catch(error => {
-      console.log(error)
+    //Actual call here
+    axios.post('http://localhost:5000/lyrics/', {
+      artist: artist,
+      song: song
+    })
+    .then(response => {
+      //console.log("SUCCESS", response);
+
+
+      if (response.status === 200) {
+        setLyrics(response.data.lyrics);
+        setEngLyrics(response.data.lyrics);
+      } 
+
+      else {
+        setError('Error: Failed to fetch lyrics');
+      }
+
+      setLoading(false);
     })
 
-  }, [])
+    //error catching
+    .catch(error => {
+      console.log(error);
+      setError('Error: Failed to fetch lyrics');
+      setLoading(false);
+    });
+  };
+
+  const handleTranslateSubmit = (e) => {
+  };
+
   return (
-    <div className="App" >
-      <header className="App-header">
-      <h1>"ACOUSTIQ</h1>
-        {/* <img src={logo} className="App-logo" alt="logo" />
-        <div>{getMessage.status === 200 ? 
-          <p>{getMessage.data.lyrics}</p>
-          :
-          <p>LOADING</p>}</div> */}
-      </header>
-    </div>
+    <>
+      <meta charSet="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <h1>Lyric Finder</h1>
+      <img
+        src="ACOUSTIQ.png"
+        alt="ACOUSTIQ logo"
+        width={300}
+        height={300}
+        style={{ marginTop: "2rem" }}
+      />
+      <form onSubmit={handleLyricSubmit}> {/* Woah there lil bro */}
+        <label htmlFor="artist-name">Enter artist name:</label>
+        <input 
+          type="text" 
+          id="artist-name" 
+          name="artist-name" 
+          value={artist}
+          onChange={(e) => setArtist(e.target.value)}
+        />
+        <label htmlFor="song-name">Enter song name:</label>
+        <input 
+          type="text" 
+          id="song-name" 
+          name="song-name" 
+          value={song}
+          onChange={(e) => setSong(e.target.value)}
+        />
+        <button type="submit" id="find-lyrics">Find Lyrics</button>
+      </form>
+      <div className="translation-buttons">
+        <button id="translate-to-english">Translate to English</button>
+        <button id="translate-to-french">Translate to French</button>
+        <button id="translate-to-italian">Translate to Italian</button>
+        <button id="translate-to-spanish">Translate to Spanish</button>
+      </div>
+      {error ? <p>{error}</p> : <textarea id="lyrics-output" readOnly="" defaultValue={loading ? 'LOADING' : lyrics} />}
+      <h2 id="theme-heading">Theme:</h2>
+      <textarea id="theme-output" readOnly="" defaultValue={""} />
+    </>
   );
 }
 export default App;
