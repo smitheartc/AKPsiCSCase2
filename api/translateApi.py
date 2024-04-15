@@ -7,7 +7,7 @@ import re
 class translateApi(Resource):
 
   credential_path = r"application_default_credentials.json"
-  os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = SECRET_API_KEY
+  os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
   def post(self):
     parser = reqparse.RequestParser()
