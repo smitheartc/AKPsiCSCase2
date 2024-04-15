@@ -10,6 +10,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [engLyrics, setEngLyrics] = useState('');
+  const [language, setLanguage] = useState('');
   
   const handleLyricSubmit = (e) => {
     
@@ -47,6 +48,50 @@ function App() {
   };
 
   const handleTranslateSubmit = (e) => {
+    e.preventDefault(); //Prevent page refresh
+    setLoading(true); //So the user can see it's loading
+    setError(''); //Clear previous error messages
+
+    //Actual call here
+    axios.post('http://localhost:5000/translate/', {
+      language: "fr",
+      text: engLyrics
+    })
+    .then(response => {
+      if (response.status === 200) {
+        setLyrics(response.data.text);
+      } 
+
+      else {
+        setError('Error: Failed to fetch lyrics');
+      }
+      setLoading(false);
+    })
+    //error catching
+    .catch(error => {
+      console.log(error);
+      setError('Error: Failed to fetch lyrics');
+      setLoading(false);
+    });
+  };
+
+  const setLanguageEn = (e) => {
+    setLyrics(engLyrics);
+  };
+
+  const setLanguageFr = (e) => {
+    setLanguage("fr");
+    handleTranslateSubmit(e);
+  };
+
+  const setLanguageIt = (e) => {
+    setLanguage("it");
+    handleTranslateSubmit(e);
+  };
+
+  const setLanguageEs = (e) => {
+    setLanguage("es");
+    handleTranslateSubmit(e);
   };
 
   return (
@@ -81,10 +126,10 @@ function App() {
         <button type="submit" id="find-lyrics">Find Lyrics</button>
       </form>
       <div className="translation-buttons">
-        <button id="translate-to-english">Translate to English</button>
-        <button id="translate-to-french">Translate to French</button>
-        <button id="translate-to-italian">Translate to Italian</button>
-        <button id="translate-to-spanish">Translate to Spanish</button>
+        <button id="translate-to-english" onClick={setLanguageEn}>Translate to English</button>
+        <button id="translate-to-french" onClick={setLanguageFr}>Translate to French</button>
+        <button id="translate-to-italian" onClick={setLanguageIt}>Translate to Italian</button>
+        <button id="translate-to-spanish" onClick={setLanguageEs}>Translate to Spanish</button>
       </div>
       {error ? <p>{error}</p> : <textarea id="lyrics-output" readOnly="" defaultValue={loading ? 'LOADING' : lyrics} />}
       <h2 id="theme-heading">Theme:</h2>
