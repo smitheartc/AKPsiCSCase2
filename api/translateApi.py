@@ -1,11 +1,12 @@
-from flask_restful import Api, Resource, reqparse
+from flask_restful import Resource, reqparse
 from flask import jsonify
 from google.cloud import translate
 import os
+import re
 
 class translateApi(Resource):
 
-  credential_path = r"C:\Users\acrob\AppData\Roaming\gcloud\application_default_credentials.json"
+  credential_path = r"application_default_credentials.json"
   os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
   def post(self):
@@ -24,15 +25,20 @@ class translateApi(Resource):
     language = args['language']
     text = args['text']
 
-    #initializing translation api client
-    client = translate.TranslationServiceClient()
+    #replacing newlines with | to send to google translate
+    text = text.replace('\n', ' | ')
 
     #actual translation call to Google Translate API 
+    client = translate.TranslationServiceClient()
     response = client.translate_text(contents=[text], parent = PARENT, target_language_code=language)
     translatedText = response.translations[0].translated_text
-    
-    #removing junk data that got messed up when sending newlines to translate
-    translatedText = translatedText.replace("&#39","\n")
+
+    #removing junk data that got messed up when sending to translate
+    translatedText = re.sub('.&#39;', '', translatedText) 
+
+    #replacing | with newlines for the return
+    translatedText = translatedText.replace('|', '\n')
+
 
     #formatting the data to return properly
     returnDict = { "text" : translatedText}
