@@ -54,9 +54,10 @@ function App() {
 
     //Actual call here
     axios.post('http://localhost:5000/translate/', {
-      language: "fr",
+      language: language,
       text: engLyrics
     })
+    
     .then(response => {
       if (response.status === 200) {
         setLyrics(response.data.text);
@@ -76,21 +77,25 @@ function App() {
   };
 
   const setLanguageEn = (e) => {
+    e.preventDefault();
     setLyrics(engLyrics);
   };
 
   const setLanguageFr = (e) => {
+    e.preventDefault();
     setLanguage("fr");
     handleTranslateSubmit(e);
   };
 
   const setLanguageIt = (e) => {
-    setLanguage("it");
+    e.preventDefault();
+    e.setLanguage("it");
     handleTranslateSubmit(e);
   };
 
   const setLanguageEs = (e) => {
-    setLanguage("es");
+    e.preventDefault();
+    e.setLanguage("es");
     handleTranslateSubmit(e);
   };
 
