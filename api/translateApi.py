@@ -37,7 +37,7 @@ class translateApi(Resource):
     translatedText = re.sub('.&#39;', '', translatedText) 
 
     #replacing | with newlines for the return
-    translatedText = translatedText.replace('|', '\n')
+    translatedText = translatedText.replace('| ', '\n')
 
 
     #formatting the data to return properly
