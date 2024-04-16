@@ -1,6 +1,7 @@
 from flask_restful import Api, Resource, reqparse
 from flask import jsonify
 import azapi
+import os
 
 class lyricApi(Resource):
 
@@ -39,7 +40,13 @@ class lyricApi(Resource):
     #Making the return a json
     lyricList = {"lyrics" : API.lyrics}
     # response = json.dump(lyricList)
+    returnvar = jsonify(lyricList)
+    dir_name = os.getcwd()
+    dir = os.listdir(dir_name)
 
+    for item in dir:
+        if item.endswith(".lrc"):
+            os.remove(os.path.join(dir_name, item))
     # print(lyricList)
  
-    return jsonify(lyricList)
+    return returnvar
