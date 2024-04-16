@@ -9,6 +9,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [engLyrics, setEngLyrics] = useState('');
+  const [theme, setTheme] = useState('');
   //const [language, setLanguage] = useState('');
 
 
@@ -90,8 +91,35 @@ function App() {
       setError('Error: Failed to fetch lyrics');
       setLoading(false);
     });
-  };
+
+    const handleThemeSubmit = () => {
+      // e.preventDefault(); //Prevent page refresh
+      setLoading(true); //So the user can see it's loading
+      setError(''); //Clear previous error messages
   
+      //Actual call here
+      axios.post('http://localhost:5000/theme/', {
+        text: engLyrics
+      })
+      
+      .then(response => {
+        if (response.status === 200) {
+          setTheme(response.data.text);
+        } 
+  
+        else {
+          setError('Error: Failed to fetch lyrics');
+        }
+        setLoading(false);
+      })
+      //error catching
+      .catch(error => {
+        console.log(error);
+        setError('Error: Failed to fetch lyrics');
+        setLoading(false);
+      });
+  };
+}
   return (
     <>
       <meta charSet="UTF-8" />
@@ -131,7 +159,7 @@ function App() {
       </div>
       {error ? <p>{error}</p> : <textarea id="lyrics-output" readOnly="" defaultValue={loading ? 'LOADING' : lyrics} />}
       <h2 id="theme-heading">Theme:</h2>
-      <textarea id="theme-output" readOnly="" defaultValue={""} />
+      <textarea id="theme-output" readOnly="" defaultValue={loading ? 'LOADING' : theme} />
     </>
   );
 }
