@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import logo from './ACOUSTIQ.png'
 
 function App() {
   const [artist, setArtist] = useState('');
@@ -109,7 +110,7 @@ function App() {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <h1>Lyric Finder</h1>
       <img
-        src="ACOUSTIQ.png"
+        src={logo}
         alt="ACOUSTIQ logo"
         width={300}
         height={300}
