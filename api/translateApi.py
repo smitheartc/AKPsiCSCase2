@@ -25,9 +25,10 @@ class translateApi(Resource):
     language = args['language']
     text = args['text']
 
+    print(text)
     #replacing newlines with | to send to google translate
     text = text.replace('\n', ' | ')
-
+    print(text)
     #actual translation call to Google Translate API 
     client = translate.TranslationServiceClient()
     response = client.translate_text(contents=[text], parent = PARENT, target_language_code=language)

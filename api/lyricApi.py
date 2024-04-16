@@ -1,6 +1,6 @@
 from flask_restful import Api, Resource, reqparse
 from flask import jsonify
-import requests
+import azapi
 
 class lyricApi(Resource):
 
@@ -14,20 +14,30 @@ class lyricApi(Resource):
     artist = args['artist']
     song = args['song']
 
+
+    API = azapi.AZlyrics('google', accuracy=0.5)
+
+    API.artist = artist
+    API.title = song
+
+    API.getLyrics(save=True, ext='lrc')
+
+    print(API.lyrics)
     #formatting the request arguments properly by removing spaces
     artist.replace("%20"," ")
     song.replace("%20"," ")
-    resp = requests.get("https://api.lyrics.ovh/v1/{artist}/{song}".format(artist=artist, song=song))
-        
+    # resp = requests.get("https://api.lyrics.ovh/v1/{artist}/{song}".format(artist=artist, song=song))
+
+
     #Cleaning up the junk in the first line
-    raw = resp.json()
-    lyrics = raw["lyrics"]
-    print(lyrics)
-    index = lyrics.find('\n')  #finding the first \n
-    lyrics = lyrics[index+1:]  #deleting everything before that
+    # raw = resp.json()
+    # lyrics = raw["lyrics"]
+    # print(lyrics)
+    # index = lyrics.find('\n')  #finding the first \n
+    # lyrics = lyrics[index+1:]  #deleting everything before that
 
     #Making the return a json
-    lyricList = {"lyrics" : lyrics}
+    lyricList = {"lyrics" : API.lyrics}
     # response = json.dump(lyricList)
 
     # print(lyricList)
