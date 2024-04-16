@@ -17,21 +17,17 @@ class themeApi(Resource):
 
         #initialize countvectorizer, configuring it to consider key words
         vectorizer = CountVectorizer(stop_words='english', ngram_range=(1, 2))
-
+        
+        #giving the CV the lyrics
         X = vectorizer.fit_transform([lyrics])
 
-        word_counts = X.sum(axis=0)  # Sum the occurrences of each word
+        # Sum the occurrences of each word
+        word_counts = X.sum(axis=0)  
         words_freq = [(word, word_counts[0, idx]) for word, idx in vectorizer.vocabulary_.items()]
         words_freq = sorted(words_freq, key=lambda x: x[1], reverse=True)
-        
-        # Sort the vocabulary based on word counts
-        #sortedVocab = sorted(vocabulary.items(), key=lambda item: word_counts[item[1]], reverse=True)
-
-        #Filter out words shorter than 5 letters
-        #sortedVocab = [(word, count) for word, count in sortedVocab if len(word) >= 5]
 
         #getting the top 2 words freq words
         returnDict = words_freq[:2]
+        
         #Making the return a json
-
         return jsonify(returnDict)
