@@ -41,4 +41,5 @@ class themeApi(Resource):
                 mc = curr
         
         #Making the return a json
-        return jsonify(x)
+        them = {"theme" : x}
+        return jsonify(them)
