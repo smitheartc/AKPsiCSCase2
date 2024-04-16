@@ -34,4 +34,4 @@ class themeApi(Resource):
                 mc = curr
         
         #Making the return a json
-        return jsonify(returnDict)
+        return jsonify(x)
