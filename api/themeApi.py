@@ -1,5 +1,6 @@
 from flask_restful import Api, Resource, reqparse
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 from flask import jsonify
 import json
 
@@ -15,8 +16,12 @@ class themeApi(Resource):
         # changing it to a string format
         lyrics = json.dumps(lyrics)
 
+        #change stop words (what words are important vs not)
+        custom_stop_words = set(ENGLISH_STOP_WORDS)
+        custom_stop_words.update(['ha', 'oh'])
+
         #initialize countvectorizer, removing irrelevant words and also considering 1 and 2 word phrases
-        vectorizer = CountVectorizer(stop_words='english', ngram_range=(1, 2))
+        vectorizer = CountVectorizer(stop_words=custom_stop_words, ngram_range=(1, 2))
         
         #giving the CV the lyrics
         X = vectorizer.fit_transform([lyrics])
