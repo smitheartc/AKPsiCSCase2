@@ -1,10 +1,6 @@
 import React, { useReducer, useState } from 'react';
 import axios from 'axios';
 import './App.css';
-import land from './music_landscape.jpeg';
-import note from './music_note.png';
-import logo from './ACOUSTIQ.png';
-import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 
 
 function App() {
@@ -112,28 +108,8 @@ function App() {
     <>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      
-      {/* <div>
-            <Parallax pages={4}>
-                <ParallaxLayer>
-                    <h2>Welcome to my website</h2>
-                </ParallaxLayer>
-
-                <ParallaxLayer offset={1}>
-                    <h2>Web Dev</h2>
-                </ParallaxLayer>
-            </Parallax>
-
-        </div> */}
-      
       <h1>Lyric Finder</h1>
-      <img
-        src="ACOUSTIQ.png"
-        alt="ACOUSTIQ logo"
-        width={300}
-        height={300}
-        style={{ marginTop: "2rem" }}
-      />
+      <img src="/ACOUSTIQ.png" alt="ACOUSTIQ logo" width={300} height={300} style={{ marginTop: "2rem" }} />
       <form onSubmit={handleLyricSubmit}> {/* Woah there lil bro */}
         <label htmlFor="artist-name">Enter artist name:</label>
         <input 
