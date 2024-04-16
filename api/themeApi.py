@@ -18,7 +18,6 @@ class themeApi(Resource):
         vectorizer = CountVectorizer()
 
         X = vectorizer.fit_transform([lyrics])
-        print(type(X))
 
         word_counts = X.toarray().sum(axis=0)  # Sum the occurrences of each word
         vocabulary = vectorizer.vocabulary_
@@ -28,6 +27,10 @@ class themeApi(Resource):
 
         #Filter out words shorter than 5 letters
         sortedVocab = [(word, count) for word, count in sortedVocab if len(word) >= 5]
+
+        sum_words = X.sum(axis=0)
+        words_freq = [(word, sum_words[0, idx]) for word, idx in vectorizer.vocabulary_.items()]
+        words_freq = sorted(words_freq, key=lambda x: x[1], reverse=True)
 
         print(sortedVocab)
 
