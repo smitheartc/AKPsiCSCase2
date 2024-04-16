@@ -40,13 +40,13 @@ class lyricApi(Resource):
     #Making the return a json
     lyricList = {"lyrics" : API.lyrics}
     # response = json.dump(lyricList)
-    returnvar = jsonify(lyricList)
-    dir_name = os.getcwd()
-    dir = os.listdir(dir_name)
 
-    for item in dir:
-        if item.endswith(".lrc"):
-            os.remove(os.path.join(dir_name, item))
+    # dir_name = os.getcwd()
+    # dir = os.listdir(dir_name)
+
+    # for item in dir:
+    #     if item.endswith(".lrc"):
+    #         os.remove(os.path.join(dir_name, item))
     # print(lyricList)
  
-    return returnvar
+    return jsonify(lyricList)
