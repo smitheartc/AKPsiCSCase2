@@ -15,10 +15,11 @@ class themeApi(Resource):
 
         # changing it to a string format
         lyrics = json.dumps(lyrics)
+        lyrics = lyrics.replace(r"\n", " ")
 
         #change stop words (what words are important vs not)
         sw = set(ENGLISH_STOP_WORDS)
-        sw.update(['ha', 'oh', 'll'])
+        sw.update(['ha', 'oh', 'll', 'yeah'])
         list_sw = list(sw)
 
         #initialize countvectorizer, 
