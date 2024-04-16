@@ -15,28 +15,21 @@ class themeApi(Resource):
         # changing it to a string format
         lyrics = json.dumps(lyrics)
 
-        vectorizer = CountVectorizer()
+        vectorizer = CountVectorizer(stop_words='english', ngram_range=(1, 2))
 
         X = vectorizer.fit_transform([lyrics])
 
-        word_counts = X.toarray().sum(axis=0)  # Sum the occurrences of each word
-        vocabulary = vectorizer.vocabulary_
+        word_counts = X.sum(axis=0)  # Sum the occurrences of each word
+        words_freq = [(word, word_counts[0, idx]) for word, idx in vectorizer.vocabulary_.items()]
+        words_freq = sorted(words_freq, key=lambda x: x[1], reverse=True)
         
         # Sort the vocabulary based on word counts
-        sortedVocab = sorted(vocabulary.items(), key=lambda item: word_counts[item[1]], reverse=True)
+        #sortedVocab = sorted(vocabulary.items(), key=lambda item: word_counts[item[1]], reverse=True)
 
         #Filter out words shorter than 5 letters
-        sortedVocab = [(word, count) for word, count in sortedVocab if len(word) >= 5]
+        #sortedVocab = [(word, count) for word, count in sortedVocab if len(word) >= 5]
 
-        sum_words = X.sum(axis=0)
-        words_freq = [(word, sum_words[0, idx]) for word, idx in vectorizer.vocabulary_.items()]
-        words_freq = sorted(words_freq, key=lambda x: x[1], reverse=True)
-
-        print(sortedVocab)
-
-        #Making the return a json
-        jsonRet = {"theme" : sortedVocab[:2]}
-
-        returnDict = { "theme word 1" : jsonRet["theme"][0][0], "theme word 2" : jsonRet["theme"][1][0]}
+        #print(sortedVocab)
+        returnDict = words_freq[:2]
 
         return jsonify(returnDict)
