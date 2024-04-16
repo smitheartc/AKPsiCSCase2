@@ -1,7 +1,6 @@
 from flask_restful import Api, Resource, reqparse
 from flask import jsonify
 import requests
-import json
 
 class lyricApi(Resource):
 
@@ -31,6 +30,6 @@ class lyricApi(Resource):
     lyricList = {"lyrics" : lyrics}
     # response = json.dump(lyricList)
 
-    print(lyricList)
+    # print(lyricList)
  
     return jsonify(lyricList)
