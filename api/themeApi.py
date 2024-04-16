@@ -15,6 +15,7 @@ class themeApi(Resource):
         # changing it to a string format
         lyrics = json.dumps(lyrics)
 
+        #initialize countvectorizer, configuring it to consider key words
         vectorizer = CountVectorizer(stop_words='english', ngram_range=(1, 2))
 
         X = vectorizer.fit_transform([lyrics])
@@ -29,7 +30,8 @@ class themeApi(Resource):
         #Filter out words shorter than 5 letters
         #sortedVocab = [(word, count) for word, count in sortedVocab if len(word) >= 5]
 
-        #print(sortedVocab)
+        #getting the top 2 words freq words
         returnDict = words_freq[:2]
+        #Making the return a json
 
         return jsonify(returnDict)
