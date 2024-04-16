@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import axios from 'axios';
 import './App.css';
-
 
 function App() {
   const [artist, setArtist] = useState('');
@@ -10,8 +9,25 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [engLyrics, setEngLyrics] = useState('');
-  const [language, setLanguage] = useState('');
-  
+  //const [language, setLanguage] = useState('');
+
+
+  // const languageReducer = (state, action) => {
+  //   switch (action.type) {
+  //     case "SET_LANGUAGE":
+  //       return action.language;
+  //     default:
+  //       return state;
+  //   }
+  // };
+
+  // const [language, dispatchLanguage] = useReducer(languageReducer, '');
+
+
+  // const setLanguage = (lang) => {
+  //   dispatchLanguage({ type: "SET_LANGUAGE", language: lang });
+  // };
+
   const handleLyricSubmit = (e) => {
     
     e.preventDefault(); //Prevent page refresh
@@ -47,14 +63,14 @@ function App() {
     });
   };
 
-  const handleTranslateSubmit = (e) => {
-    e.preventDefault(); //Prevent page refresh
+  const handleTranslateSubmit = (lang) => {
+    // e.preventDefault(); //Prevent page refresh
     setLoading(true); //So the user can see it's loading
     setError(''); //Clear previous error messages
 
     //Actual call here
     axios.post('http://localhost:5000/translate/', {
-      language: language,
+      language: lang,
       text: engLyrics
     })
     
@@ -75,30 +91,7 @@ function App() {
       setLoading(false);
     });
   };
-
-  const setLanguageEn = (e) => {
-    e.preventDefault();
-    setLyrics(engLyrics);
-  };
-
-  const setLanguageFr = (e) => {
-    e.preventDefault();
-    setLanguage("fr");
-    handleTranslateSubmit(e);
-  };
-
-  const setLanguageIt = (e) => {
-    e.preventDefault();
-    e.setLanguage("it");
-    handleTranslateSubmit(e);
-  };
-
-  const setLanguageEs = (e) => {
-    e.preventDefault();
-    e.setLanguage("es");
-    handleTranslateSubmit(e);
-  };
-
+  
   return (
     <>
       <meta charSet="UTF-8" />
@@ -131,10 +124,10 @@ function App() {
         <button type="submit" id="find-lyrics">Find Lyrics</button>
       </form>
       <div className="translation-buttons">
-        <button id="translate-to-english" onClick={setLanguageEn}>Translate to English</button>
-        <button id="translate-to-french" onClick={setLanguageFr}>Translate to French</button>
-        <button id="translate-to-italian" onClick={setLanguageIt}>Translate to Italian</button>
-        <button id="translate-to-spanish" onClick={setLanguageEs}>Translate to Spanish</button>
+        <button id="translate-to-english" onClick={() => handleTranslateSubmit('en')}>Translate to English</button>
+        <button id="translate-to-french" onClick={() => handleTranslateSubmit('fr')}>Translate to French</button>
+        <button id="translate-to-italian" onClick={() => handleTranslateSubmit('it')}>Translate to Italian</button>
+        <button id="translate-to-spanish" onClick={() => handleTranslateSubmit('es')}>Translate to Spanish</button>
       </div>
       {error ? <p>{error}</p> : <textarea id="lyrics-output" readOnly="" defaultValue={loading ? 'LOADING' : lyrics} />}
       <h2 id="theme-heading">Theme:</h2>
