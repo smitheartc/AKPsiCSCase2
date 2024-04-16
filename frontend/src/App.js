@@ -10,25 +10,7 @@ function App() {
   const [error, setError] = useState('');
   const [engLyrics, setEngLyrics] = useState('');
   const [theme, setTheme] = useState('');
-  //const [language, setLanguage] = useState('');
-
-
-   const languageReducer = (state, action) => {
-     switch (action.type) {
-       case "SET_LANGUAGE":
-         return action.language;
-       default:
-         return state;
-     }
-   };
-
-   const [language, dispatchLanguage] = useReducer(languageReducer, '');
-
-
-   const setLanguage = (lang) => {
-     dispatchLanguage({ type: "SET_LANGUAGE", language: lang });
-  // };
-
+  
   const handleLyricSubmit = (e) => {
     
     e.preventDefault(); //Prevent page refresh
@@ -78,6 +60,7 @@ function App() {
     .then(response => {
       if (response.status === 200) {
         setLyrics(response.data.text);
+        handleThemeSubmit();
       } 
 
       else {
@@ -99,7 +82,7 @@ function App() {
   
       //Actual call here
       axios.post('http://localhost:5000/theme/', {
-        text: engLyrics
+        lyrics: engLyrics
       })
       
       .then(response => {
@@ -162,6 +145,5 @@ function App() {
       <textarea id="theme-output" readOnly="" defaultValue={loading ? 'LOADING' : theme} />
     </>
   );
-}
 }
 export default App;
