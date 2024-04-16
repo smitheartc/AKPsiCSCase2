@@ -13,20 +13,20 @@ function App() {
   //const [language, setLanguage] = useState('');
 
 
-  // const languageReducer = (state, action) => {
-  //   switch (action.type) {
-  //     case "SET_LANGUAGE":
-  //       return action.language;
-  //     default:
-  //       return state;
-  //   }
-  // };
+   const languageReducer = (state, action) => {
+     switch (action.type) {
+       case "SET_LANGUAGE":
+         return action.language;
+       default:
+         return state;
+     }
+   };
 
-  // const [language, dispatchLanguage] = useReducer(languageReducer, '');
+   const [language, dispatchLanguage] = useReducer(languageReducer, '');
 
 
-  // const setLanguage = (lang) => {
-  //   dispatchLanguage({ type: "SET_LANGUAGE", language: lang });
+   const setLanguage = (lang) => {
+     dispatchLanguage({ type: "SET_LANGUAGE", language: lang });
   // };
 
   const handleLyricSubmit = (e) => {
@@ -162,5 +162,6 @@ function App() {
       <textarea id="theme-output" readOnly="" defaultValue={loading ? 'LOADING' : theme} />
     </>
   );
+}
 }
 export default App;
