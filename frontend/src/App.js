@@ -13,14 +13,13 @@ function App() {
   //const [language, setLanguage] = useState('');
 
 
-   const languageReducer = (state, action) => {
-     switch (action.type) {
-       case "SET_LANGUAGE":
-         return action.language;
-       default:
-         return state;
-     }
-   };
+ //  const languageReducer = (state, action) => {
+ //    switch (action.type) {
+ //      case "SET_LANGUAGE":
+ //        return action.language;
+ //      default:
+ //        return state;
+ //    }
 
    const [language, dispatchLanguage] = useReducer(languageReducer, '');
 
