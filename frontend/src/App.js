@@ -1,7 +1,6 @@
-import React, { useReducer, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
-
 
 function App() {
   const [artist, setArtist] = useState('');
@@ -19,7 +18,7 @@ function App() {
     setError(''); //Clear previous error messages
 
     //Actual call here
-    axios.post('http://127.0.0.1:5000/lyrics/', {
+    axios.post('http://localhost:5000/lyrics/', {
       artist: artist,
       song: song
     })
@@ -75,11 +74,9 @@ function App() {
       setError('Error: Failed to fetch lyrics');
       setLoading(false);
     });
-
+  }
     const handleThemeSubmit = () => {
       // e.preventDefault(); //Prevent page refresh
-      setLoading(true); //So the user can see it's loading
-      setError(''); //Clear previous error messages
   
       //Actual call here
       axios.post('http://localhost:5000/theme/', {
@@ -88,28 +85,24 @@ function App() {
       
       .then(response => {
         if (response.status === 200) {
-          setTheme(response.data.text);
+          setTheme(response.data.theme);
         } 
   
         else {
           setError('Error: Failed to fetch lyrics');
         }
-        setLoading(false);
       })
       //error catching
       .catch(error => {
         console.log(error);
         setError('Error: Failed to fetch lyrics');
-        setLoading(false);
       });
   };
-}
   return (
     <>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <h1>Lyric Finder</h1>
-      <img src="/ACOUSTIQ.png" alt="ACOUSTIQ logo" width={300} height={300} style={{ marginTop: "2rem" }} />
       <form onSubmit={handleLyricSubmit}> {/* Woah there lil bro */}
         <label htmlFor="artist-name">Enter artist name:</label>
         <input 
@@ -136,8 +129,10 @@ function App() {
         <button id="translate-to-spanish" onClick={() => handleTranslateSubmit('es')}>Translate to Spanish</button>
       </div>
       {error ? <p>{error}</p> : <textarea id="lyrics-output" readOnly="" defaultValue={loading ? 'LOADING' : lyrics} />}
+      
+      <button id="Theme-Submit" onClick={() => handleThemeSubmit()}>Theme Submit</button>
       <h2 id="theme-heading">Theme:</h2>
-      <textarea id="theme-output" readOnly="" defaultValue={loading ? 'LOADING' : theme} />
+      <textarea id="theme-output" readOnly="" defaultValue={theme} />
     </>
   );
 }

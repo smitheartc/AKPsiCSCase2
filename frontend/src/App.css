@@ -109,6 +109,7 @@ button:hover {
   overflow: auto;
   border: 1px solid #ccc;
   font-family: Playfair, monospace;
+  background: rgba(255, 255, 255, 0.3);
 }
 
 button {
