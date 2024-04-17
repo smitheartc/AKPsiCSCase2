@@ -22,21 +22,23 @@ class lyricApi(Resource):
     API.title = song
 
     API.getLyrics(save=False)
-
-    print(API.lyrics)
-
-    resp = requests.get("https://api.lyrics.ovh/v1/{artist}/{song}".format(artist=artist, song=song))
-
-
-    #Cleaning up the junk in the first line
-    # raw = resp.json()
-    # lyrics = raw["lyrics"]
-    # print(lyrics)
-    # index = lyrics.find('\n')  #finding the first \n
-    # lyrics = lyrics[index+1:]  #deleting everything before that
+    print("\nHere are the lyrics: ||" + API.lyrics + "||\n")
+    lyrics = API.lyrics
+    
+    #first api failed, trying second api
+    if (lyrics == ""):
+      print("kicking into second gear!!!\n\n")
+      resp = requests.get("https://api.lyrics.ovh/v1/{artist}/{song}".format(artist=artist, song=song))
+      
+      # Cleaning up the junk in the first line
+      raw = resp.json()
+      lyrics = raw["lyrics"]
+      print(lyrics)
+      index = lyrics.find('\n')  #finding the first \n
+      lyrics = lyrics[index+1:]  #deleting everything before that
 
     #Making the return a json
-    lyricList = {"lyrics" : API.lyrics}
+    lyricList = {"lyrics" : lyrics}
     # response = json.dump(lyricList)
 
     # dir_name = os.getcwd()
