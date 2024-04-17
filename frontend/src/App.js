@@ -12,6 +12,8 @@ function App() {
   const [engLyrics, setEngLyrics] = useState('');
   const [theme, setTheme] = useState('');
   
+
+  //lyric api post request, called with the "find lyrics" button
   const handleLyricSubmit = (e) => {
     
     e.preventDefault(); //Prevent page refresh
@@ -24,8 +26,6 @@ function App() {
       song: song
     })
     .then(response => {
-      //console.log("SUCCESS", response);
-
 
       if (response.status === 200) {
         setLyrics(response.data.lyrics);
@@ -47,6 +47,8 @@ function App() {
     });
   };
 
+
+  //lyric api post request, called with the "translate" buttons im actually really proud of this
   const handleTranslateSubmit = (lang) => {
     // e.preventDefault(); //Prevent page refresh
     setLoading(true); //So the user can see it's loading
@@ -75,11 +77,15 @@ function App() {
       setError('Error: Failed to fetch lyrics');
       setLoading(false);
     });
-  }
-    const handleThemeSubmit = () => {
-      // e.preventDefault(); //Prevent page refresh
-  
-      //Actual call here
+  } //translate function
+
+
+
+
+    //theme api post request, called with find lyrics and refreshed with the find theme button - bug not feature(?)
+    const handleThemeSubmit = () => { 
+
+
       axios.post('http://localhost:5000/theme/', {
         lyrics: engLyrics
       })
@@ -98,7 +104,12 @@ function App() {
         console.log(error);
         setError('Error: Failed to fetch lyrics');
       });
-  };
+  }; //theme function
+
+
+
+
+  //Kaustubh's html begins here
   return (
     <>
       <meta charSet="UTF-8" />
