@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <h1> Lyric Finder</h1>
     <img src="ACOUSTIQ.png" alt="ACOUSTIQ logo" width="300" height="300" style="margin-top: 2rem;">
+
     <style>
         body {
             padding: 2rem;
@@ -54,7 +55,7 @@
             font-family: Playfair, monospace;
         }
 
-       .translation-buttons {
+        .translation-buttons {
             display: flex;
             justify-content: space-between;
             margin-bottom: 0.25rem;
@@ -90,7 +91,7 @@
             font-family: Playfair, monospace;
         }
 
-       .translation-buttons {border-radius: 4px}
+        .translation-buttons {border-radius: 4px}
 
         #theme-heading {
             margin-top: 1rem;
@@ -109,7 +110,6 @@
             overflow: auto;
             border: 1px solid #ccc;
             font-family: Playfair, monospace;
-    
         }
 
         button {
@@ -120,11 +120,22 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-      
+
     </style>
 </head>
 
 <body>
+
+    <div class="section1">
+        <div class="text">PARALLAX</div>
+    <div class="section2">
+        <div class="text">NORMAL</div>
+    </div>
+
+
+
+
+
     <form>
         <label for="artist-name">Enter artist name:</label>
         <input type="text" id="artist-name" name="artist-name">
@@ -136,12 +147,15 @@
     </form>
 
     <div class="translation-buttons">
-        <button id="translate-to-english" style="margin: 35px;">Translate to English</button>
-        <button id="translate-to-french" style="margin: 35px;">Translate to French</button>
-        <button id="translate-to-italian" style="margin: 35px;">Translate to Italian</button>
-        <button id="translate-to-spanish" style="margin: 35px;">Translate to Spanish</button>
+        <button id="translate-to-english">Translate to English</button>
+        <button id="translate-to-french">Translate to French</button>
+        <button id="translate-to-italian">Translate to Italian</button>
+        <button id="translate-to-spanish">Translate to Spanish</button>
     </div>
 
-    <textarea id="lyrics-output" readonly ></textarea>
+    <textarea id="lyrics-output" readonly></textarea>
 
-    <h2 id="theme-heading">Theme:</h2
+    <h2 id="theme-heading">Theme:</h2>
+    <textarea id="theme-output" readonly></textarea>
+</body>
+</html>

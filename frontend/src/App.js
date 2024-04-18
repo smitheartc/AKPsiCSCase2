@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
-import logo from './ACOUSTIQ.png'
 
 function App() {
   const [artist, setArtist] = useState('');
@@ -115,13 +114,6 @@ function App() {
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <h1>Lyric Finder</h1>
-      <img
-        src={logo}
-        alt="ACOUSTIQ logo"
-        width={300}
-        height={300}
-        style={{ marginTop: "2rem" }}
-      />
       <form onSubmit={handleLyricSubmit}> {/* Woah there lil bro */}
         <label htmlFor="artist-name">Enter artist name:</label>
         <input 
