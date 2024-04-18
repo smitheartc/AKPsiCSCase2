@@ -5,7 +5,7 @@ from api.lyricApi import lyricApi
 from api.translateApi import translateApi
 from api.themeApi import themeApi
 
-app = Flask(__name__, static_url_path='', static_folder='/build')
+app = Flask(__name__, static_url_path='', static_folder='build')
 #CORS(app) #comment this on deployment
 api = Api(app)
 
