@@ -32,6 +32,7 @@ function App() {
       } 
 
       else {
+        console.log("I'm a little bitch!")
         setError('Error: Failed to fetch lyrics');
       }
 
