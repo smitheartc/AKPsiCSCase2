@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "PORT=process.env.PORT react-scripts start",
-    "build": "react-scripts build",
+    "build": "PORT=process.env.PORT react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
