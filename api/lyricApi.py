@@ -21,9 +21,12 @@ class lyricApi(Resource):
     API.artist = artist
     API.title = song
 
-    API.getLyrics(save=False)
+    try:
+      API.getLyrics(save=False)
+      lyrics = API.lyrics
+    except:
+      lyrics = ""
     # print("\nHere are the lyrics: ||" + API.lyrics + "||\n")
-    lyrics = API.lyrics
     
     #first api failed, trying second api
     if (lyrics == ""):
