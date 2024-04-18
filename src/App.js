@@ -20,7 +20,7 @@ function App() {
     setError(''); //Clear previous error messages
 
     //Actual call here
-    axios.post('http://localhost:5000/lyrics/', {
+    axios.post('https://akcase-42a92ad3933c.herokuapp.com/lyrics/', {
       artist: artist,
       song: song
     })
@@ -55,7 +55,7 @@ function App() {
     setError(''); //Clear previous error messages
 
     //Actual call here
-    axios.post('http://localhost:5000/translate/', {
+    axios.post('https://akcase-42a92ad3933c.herokuapp.com/translate/', {
       language: lang,
       text: engLyrics
     })
@@ -86,7 +86,7 @@ function App() {
     const handleThemeSubmit = () => { 
 
 
-      axios.post('http://localhost:5000/theme/', {
+      axios.post('https://akcase-42a92ad3933c.herokuapp.com/theme/', {
         lyrics: engLyrics
       })
       
