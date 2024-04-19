@@ -32,14 +32,7 @@ Run the script `npm run build` and after that, `python -m flask run` and follow 
 
 Contributions are welcome! If you'd like to contribute to this project, feel free to open a pull request. Make sure to follow the existing code style and add appropriate comments for new features.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Disclaimer
 
 This project is for educational and personal use only. The developers are not responsible for any misuse or violation of terms of service of the external APIs used in this project.
 
----
-
-Feel free to modify and expand this README according to your project's specific details and requirements.
