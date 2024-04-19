@@ -13,7 +13,7 @@ This repository contains a React frontend Flask Backend project designed to take
 1. Clone the repository:
 
 ```
-git clone https://github.com/yourusername/song-lyrics-translator.git
+git clone https://github.com/smitheartc/AKPsiCSCase2/
 ```
 
 2. Install dependencies:
